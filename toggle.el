@@ -88,7 +88,9 @@
                 ("app/models/\\1.rb"      . "test/unit/\\1_test.rb")
                 ("lib/\\1.rb"             . "test/unit/test_\\1.rb")))
     (ruby    . (("lib/\\1.rb"             . "test/test_\\1.rb")
-                ("\\1.rb"                 . "test_\\1.rb"))))
+                ("\\1.rb"                 . "test_\\1.rb")))
+    (elixir  . (("lib/\\1.ex"             . "test/test_\\1.exs")
+                ("\\1.ex"                 . "test_\\1.exs"))))
   "A list of (name . toggle-mapping) rules used by toggle-filename."
   :group 'toggle
   :type '(repeat (cons string string)))
