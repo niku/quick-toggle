@@ -1,40 +1,29 @@
 ;;; quick-toggle.el --- quickly open corresponding file (eg test vs impl).
 
-;; Copyright (C) 2006-2007 by Ryan Davis
+;; Author: niku <niku@niku.name>
+;; URL: https://github.com/niku/quick-toggle
+;; Version 0.0.1
 
-;; Author: Ryan Davis <ryand-ruby@zenspider.com>
-;; Version 1.3.1
-;; Keywords: files, extensions, convenience
-;; Created: 2006-03-22
-;; Compatibility: Emacs 22, 21?
-;; URL(en): http://seattlerb.rubyforge.org/
+;; The MIT License (MIT)
 
-;;; Posted using:
-;; (setq emacs-wiki-name "RyanDavis")
-;; (wikiput-buffer "update")
+;; Copyright (c) 2013 niku
 
-;;; The MIT License:
+;; Permission is hereby granted, free of charge, to any person obtaining a copy of
+;; this software and associated documentation files (the "Software"), to deal in
+;; the Software without restriction, including without limitation the rights to
+;; use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+;; the Software, and to permit persons to whom the Software is furnished to do so,
+;; subject to the following conditions:
 
-;; http://en.wikipedia.org/wiki/MIT_License
-;;
-;; Permission is hereby granted, free of charge, to any person obtaining
-;; a copy of this software and associated documentation files (the
-;; "Software"), to deal in the Software without restriction, including
-;; without limitation the rights to use, copy, modify, merge, publish,
-;; distribute, sublicense, and/or sell copies of the Software, and to
-;; permit persons to whom the Software is furnished to do so, subject to
-;; the following conditions:
+;; The above copyright notice and this permission notice shall be included in all
+;; copies or substantial portions of the Software.
 
-;; The above copyright notice and this permission notice shall be
-;; included in all copies or substantial portions of the Software.
-
-;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-;; EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-;; MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-;; IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-;; CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-;; TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-;; SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+;; FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+;; COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+;; IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+;; CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ;;; Commentary:
 
@@ -53,27 +42,7 @@
 ;; blah.rb <-> test_blah.rb
 ;; lib/blah.rb <-> test/test_blah.rb
 
-;;; History:
-
-;; 1.3.1 2008-09-25 Fixed doco & typo in rspec patterns.
-;; 1.3.0 2007-05-10 Added tab completion to toggle-style. Suggested by TingWang.
-;; 1.2.0 2007-04-06 Interleave bidirectional mappings. Fixed interactive setter.
-;;                  Added rspec mappings.
-;; 1.1.0 2007-03-30 Initial release to emacswiki.org. Added named styles and bidi.
-;; 1.0.0 2006-03-22 Birfday.
-
 (require 'cl)
-
-;; TODO:
-;; It would also be great to be able to toggle between a model and
-;; the equivalent controller:
-;;   app/models/\\1.rb     => app/controllers/\\1.rb
-;; and from the controller to views:
-;;   app/controller/\\1.rb => app/views/\\1.rb/
-;;
-;; I can't do that yet... but we should be able to make the mapping
-;; styles list any number of patterns to rotate through. I'll talk to
-;; PhilHagelberg about it and try it.
 
 (defcustom quick-toggle-mapping-styles
   '((zentest . (("app/controllers/\\1.rb" . "test/controllers/\\1_test.rb")
@@ -153,3 +122,4 @@ match is found, switches to that buffer."
       (message (concat "Match not found for " (buffer-file-name))))))
 
 (provide 'quick-toggle)
+;;; quick-toggle.el ends here
