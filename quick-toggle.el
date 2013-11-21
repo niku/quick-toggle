@@ -1,4 +1,4 @@
-;;; toggle.el --- quickly open corresponding file (eg test vs impl).
+;;; quick-toggle.el --- quickly open corresponding file (eg test vs impl).
 
 ;; Copyright (C) 2006-2007 by Ryan Davis
 
@@ -41,8 +41,8 @@
 ;; This package provides the ability to quickly open a corresponding
 ;; file for the current buffer by using a bi-directional mapping of
 ;; regular expression pairs. You can select a mapping style from
-;; `toggle-mapping-styles' using the `toggle-style' function or set
-;; your default style via the `toggle-mapping-style' variable.
+;; `quick-toggle-mapping-styles' using the `quick-toggle-style' function or set
+;; your default style via the `quick-toggle-mapping-style' variable.
 
 ;; There are 4 different mapping styles in this version: zentest,
 ;; rails, and ruby. Feel free to submit more and I'll incorporate
@@ -75,7 +75,7 @@
 ;; styles list any number of patterns to rotate through. I'll talk to
 ;; PhilHagelberg about it and try it.
 
-(defcustom toggle-mapping-styles
+(defcustom quick-toggle-mapping-styles
   '((zentest . (("app/controllers/\\1.rb" . "test/controllers/\\1_test.rb")
                 ("app/views/\\1.rb"       . "test/views/\\1_test.rb")
                 ("app/models/\\1.rb"      . "test/unit/\\1_test.rb")
@@ -91,24 +91,24 @@
                 ("\\1.rb"                 . "test_\\1.rb")))
     (elixir  . (("lib/\\1.ex"             . "test/test_\\1.exs")
                 ("\\1.ex"                 . "test_\\1.exs"))))
-  "A list of (name . toggle-mapping) rules used by toggle-filename."
-  :group 'toggle
+  "A list of (name . quick-toggle-mapping) rules used by quick-toggle-filename."
+  :group 'quick-toggle
   :type '(repeat (cons string string)))
 
-(defcustom toggle-mapping-style
+(defcustom quick-toggle-mapping-style
   'ruby
-  "The default toggle mapping style to load when initialized."
-  :group 'toggle
+  "The default quick-toggle mapping style to load when initialized."
+  :group 'quick-toggle
   :type '(symbol))
 
-(defun toggle-style (name)
+(defun quick-toggle-style (name)
   (interactive (list (completing-read "Style: "
                                       (mapcar
                                        #'symbol-name
-                                       (mapcar #'car toggle-mapping-styles))
+                                       (mapcar #'car quick-toggle-mapping-styles))
                                       nil t "")))
   (let* ((style (if (stringp name) (intern name) name))
-         (pairs (cdr (assoc style toggle-mapping-styles))))
+         (pairs (cdr (assoc style quick-toggle-mapping-styles))))
     (if pairs
         (let ((mappings
                (mapcar (lambda (pair)
@@ -124,14 +124,14 @@
                                          (cons (cdr pair) (car pair)))
                                        pairs)))))
           (if (interactive-p)
-              (setq toggle-mappings mappings)
+              (setq quick-toggle-mappings mappings)
             mappings))
       nil)))
 
-(defvar toggle-mappings (toggle-style toggle-mapping-style)
-  "*The current file mappings for `toggle-filename' to use.")
+(defvar quick-toggle-mappings (quick-toggle-style quick-toggle-mapping-style)
+  "*The current file mappings for `quick-toggle-filename' to use.")
 
-(defun toggle-filename (path rules)
+(defun quick-toggle-filename (path rules)
   "Transform a matching subpath in PATH as given by RULES.
 Each element in RULES is a pair (RE . TRANS). If the regular
 expression RE matches PATH, then replace-match is invoked with
@@ -140,16 +140,16 @@ matches, it returns nil"
   (cond ((null rules) nil)
     ((string-match (caar rules) path)
      (replace-match (cdar rules) nil nil path))
-    (t (toggle-filename path (rest rules)))))
+    (t (quick-toggle-filename path (rest rules)))))
 
-(defun toggle-buffer ()
+(defun quick-toggle-buffer ()
   "Opens a related file to the current buffer using matching rules.
-Matches the current buffer against rules in toggle-mappings. If a
+Matches the current buffer against rules in quick-toggle-mappings. If a
 match is found, switches to that buffer."
   (interactive)
-  (let ((new-name (toggle-filename (buffer-file-name) toggle-mappings)))
+  (let ((new-name (quick-toggle-filename (buffer-file-name) quick-toggle-mappings)))
     (if new-name
         (find-file new-name)
       (message (concat "Match not found for " (buffer-file-name))))))
 
-(provide 'toggle)
+(provide 'quick-toggle)
