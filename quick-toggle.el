@@ -42,7 +42,7 @@
 ;; blah.rb <-> test_blah.rb
 ;; lib/blah.rb <-> test/test_blah.rb
 
-(require 'cl)
+(require 'cl-lib)
 
 (defcustom quick-toggle-mapping-styles
   '((zentest . (("app/controllers/\\1.rb" . "test/controllers/\\1_test.rb")
@@ -70,6 +70,9 @@
   :group 'quick-toggle
   :type '(symbol))
 
+(defvar quick-toggle-mappings (quick-toggle-style quick-toggle-mapping-style)
+  "*The current file mappings for `quick-toggle-filename' to use.")
+
 (defun quick-toggle-style (name)
   (interactive (list (completing-read "Style: "
                                       (mapcar
@@ -87,18 +90,15 @@
                            (replace-regexp-in-string ; special case for "\\1.ext"
                             "^\\\\1" "\\\\([^/]*\\\\)" (car pair)))
                           (cdr pair)))
-                       (mapcan 'list
+                       (cl-mapcan 'list
                                pairs
                                (mapcar (lambda (pair)
                                          (cons (cdr pair) (car pair)))
                                        pairs)))))
-          (if (interactive-p)
+          (if (called-interactively-p 'interactive)
               (setq quick-toggle-mappings mappings)
             mappings))
       nil)))
-
-(defvar quick-toggle-mappings (quick-toggle-style quick-toggle-mapping-style)
-  "*The current file mappings for `quick-toggle-filename' to use.")
 
 (defun quick-toggle-filename (path rules)
   "Transform a matching subpath in PATH as given by RULES.
@@ -109,7 +109,7 @@ matches, it returns nil"
   (cond ((null rules) nil)
     ((string-match (caar rules) path)
      (replace-match (cdar rules) nil nil path))
-    (t (quick-toggle-filename path (rest rules)))))
+    (t (quick-toggle-filename path (cl-rest rules)))))
 
 (defun quick-toggle-buffer ()
   "Opens a related file to the current buffer using matching rules.
