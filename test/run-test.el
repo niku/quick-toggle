@@ -1,5 +1,3 @@
-;; test/run-test.el
-
 (message "Running tests on Emacs %s" emacs-version)
 
 ;; Utils
@@ -25,7 +23,7 @@
       (list myfile:test-dir
             myfile:root-dir))
 
-(load "myfile-test")
+(load "quick-toggle-test")
 
 ;; Run tests
 (if noninteractive
