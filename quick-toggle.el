@@ -70,7 +70,7 @@
   :group 'quick-toggle
   :type '(symbol))
 
-(defvar quick-toggle-mappings (quick-toggle-style quick-toggle-mapping-style)
+(defvar quick-toggle-mappings ()
   "*The current file mappings for `quick-toggle-filename' to use.")
 
 (defun quick-toggle-style (name)
