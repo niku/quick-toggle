@@ -1,7 +1,3 @@
-(require 'ert)
-
-(require 'quick-toggle)
-
 (defun my-fixture (body)
   (unwind-protect
       (progn
