@@ -121,5 +121,13 @@ match is found, switches to that buffer."
         (find-file new-name)
       (message (concat "Match not found for " (buffer-file-name))))))
 
+(defun quick-toggle-find-matcher (map target)
+  (cl-loop
+   for matcher
+   being the hash-keys
+   in map
+   if (string-match-p matcher target)
+   return matcher))
+
 (provide 'quick-toggle)
 ;;; quick-toggle.el ends here
