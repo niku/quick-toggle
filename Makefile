@@ -6,3 +6,4 @@ test: elpa
 
 elpa: Cask
 	${CASK} install
+	touch $@
