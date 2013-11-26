@@ -1,12 +1,8 @@
-EMACS=emacs
+CASK ?= cask
+export EMACS ?= emacs
 
-.PHONY : build test
+test: elpa
+	${CASK} exec ert-runner
 
-build :
-	$(EMACS) --batch -Q -L . --eval \
-		"(progn \
-		(setq byte-compile-error-on-warn t) \
-		(batch-byte-compile))" *.el
-
-test: build
-	$(EMACS) --batch -Q -L . -l test/run-test.el
+elpa: Cask
+	${CASK} install
