@@ -129,5 +129,8 @@ match is found, switches to that buffer."
    if (string-match-p matcher target)
    return matcher))
 
+(defun quick-toggle-apply-matcher (matcher target)
+  "/home/niku/projects/foo/spec/lib/foo_spec.rb")
+
 (provide 'quick-toggle)
 ;;; quick-toggle.el ends here

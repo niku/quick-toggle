@@ -34,3 +34,11 @@
      (should (equal
               (quick-toggle-find-matcher map "/home/niku/projects/foo/ext/bar.rb")
               nil)))))
+
+(ert-deftest quick-toggle-apply-matcher ()
+  (let ((matcher (cons "spec/lib/\\(.+\\)_spec\.rb" "lib/\1.rb")))
+    (my-fixture
+     (lambda ()
+       (should (equal
+                (quick-toggle-apply-matcher matcher "/home/niku/projects/foo/lib/foo.rb")
+                "/home/niku/projects/foo/spec/lib/foo_spec.rb"))))))
