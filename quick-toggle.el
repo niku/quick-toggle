@@ -126,8 +126,9 @@ match is found, switches to that buffer."
    for matcher
    being the hash-keys
    in map
+   using (hash-values replace-to)
    if (string-match-p matcher target)
-   return matcher))
+   return (cons matcher replace-to)))
 
 (defun quick-toggle-apply-matcher (matcher target)
   "/home/niku/projects/foo/spec/lib/foo_spec.rb")

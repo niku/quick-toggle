@@ -19,14 +19,14 @@
    (lambda ()
      (should (equal
               (quick-toggle-find-matcher map "/home/niku/projects/foo/lib/foo.rb")
-              "lib/\\(.+\\)\.rb")))))
+              (cons "lib/\\(.+\\)\.rb" "spec/lib/\1_spec.rb"))))))
 
 (ert-deftest quick-toggle-find-matcher:when-matched-second ()
   (my-fixture
    (lambda ()
      (should (equal
               (quick-toggle-find-matcher map "/home/niku/projects/foo/spec/lib/foo_spec.rb")
-              "spec/lib/\\(.+\\)\_spec\.rb")))))
+              (cons "spec/lib/\\(.+\\)\_spec\.rb" "lib/\1.rb"))))))
 
 (ert-deftest quick-toggle-find-matcher:when-unmatched ()
   (my-fixture
