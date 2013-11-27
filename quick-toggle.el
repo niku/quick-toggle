@@ -130,7 +130,7 @@ match is found, switches to that buffer."
    if (string-match-p replace-from pathname)
    return (cons replace-from replace-to)))
 
-(defun quick-toggle-apply-rule (rule pathname)
+(defun quick-toggle-get-new-pathname (rule pathname)
   (when rule
     (let((replace-from (car rule))
          (replace-to (cdr rule)))
