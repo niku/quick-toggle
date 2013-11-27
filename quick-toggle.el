@@ -131,10 +131,11 @@ match is found, switches to that buffer."
    return (cons matcher replace-to)))
 
 (defun quick-toggle-apply-matcher (matcher target)
-  (let((replace-from (car matcher))
-       (replace-to (cdr matcher)))
-    (when (string-match replace-from target)
-      (replace-match replace-to nil nil target))))
+  (when matcher
+    (let((replace-from (car matcher))
+         (replace-to (cdr matcher)))
+      (when (string-match replace-from target)
+        (replace-match replace-to nil nil target)))))
 
 (provide 'quick-toggle)
 ;;; quick-toggle.el ends here

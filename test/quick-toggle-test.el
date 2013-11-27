@@ -50,3 +50,11 @@
        (should (equal
                 (quick-toggle-apply-matcher matcher "/home/niku/projects/foo/lib/foo.rb")
                 "/home/niku/projects/foo/spec/lib/foo_spec.rb"))))))
+
+(ert-deftest quick-toggle-apply-matcher:given-macher-is-nil ()
+  (let ((matcher nil))
+    (my-fixture
+     (lambda ()
+       (should (equal
+                (quick-toggle-apply-matcher matcher "/home/niku/projects/foo/lib/foo.rb")
+                nil))))))
