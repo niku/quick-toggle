@@ -121,21 +121,21 @@ match is found, switches to that buffer."
         (find-file new-name)
       (message (concat "Match not found for " (buffer-file-name))))))
 
-(defun quick-toggle-find-matcher (map target)
+(defun quick-toggle-find-rule (rules pathname)
   (cl-loop
-   for matcher
+   for replace-from
    being the hash-keys
-   in map
+   in rules
    using (hash-values replace-to)
-   if (string-match-p matcher target)
-   return (cons matcher replace-to)))
+   if (string-match-p replace-from pathname)
+   return (cons replace-from replace-to)))
 
-(defun quick-toggle-apply-matcher (matcher target)
-  (when matcher
-    (let((replace-from (car matcher))
-         (replace-to (cdr matcher)))
-      (when (string-match replace-from target)
-        (replace-match replace-to nil nil target)))))
+(defun quick-toggle-apply-rule (rule pathname)
+  (when rule
+    (let((replace-from (car rule))
+         (replace-to (cdr rule)))
+      (when (string-match replace-from pathname)
+        (replace-match replace-to nil nil pathname)))))
 
 (provide 'quick-toggle)
 ;;; quick-toggle.el ends here
