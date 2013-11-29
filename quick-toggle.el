@@ -111,16 +111,6 @@ matches, it returns nil"
      (replace-match (cdar rules) nil nil path))
     (t (quick-toggle-filename path (cl-rest rules)))))
 
-(defun quick-toggle-buffer ()
-  "Opens a related file to the current buffer using matching rules.
-Matches the current buffer against rules in quick-toggle-mappings. If a
-match is found, switches to that buffer."
-  (interactive)
-  (let ((new-name (quick-toggle-filename (buffer-file-name) quick-toggle-mappings)))
-    (if new-name
-        (find-file new-name)
-      (message (concat "Match not found for " (buffer-file-name))))))
-
 (defun quick-toggle-find-rule (rules pathname)
   (cl-loop
    for replace-from
@@ -136,6 +126,9 @@ match is found, switches to that buffer."
          (replace-to (cdr rule)))
       (when (string-match replace-from pathname)
         (replace-match replace-to nil nil pathname)))))
+
+(defun quick-toggle-buffer ()
+  (find-file "/home/niku/projects/foo/lib/foo.rb"))
 
 (provide 'quick-toggle)
 ;;; quick-toggle.el ends here

@@ -58,3 +58,9 @@
        (should (equal
                 (quick-toggle-get-new-pathname rule "/home/niku/projects/foo/lib/foo.rb")
                 nil))))))
+
+(ert-deftest quick-toggle-buffer ()
+  (with-mock
+   (stub buffer-file-name => "/home/niku/projects/foo/lib/foo.rb")
+   (mock (find-file "/home/niku/projects/foo/lib/foo.rb"))
+   (quick-toggle-buffer)))
