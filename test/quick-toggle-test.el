@@ -61,6 +61,8 @@
 
 (ert-deftest quick-toggle-buffer ()
   (with-mock
-   (stub buffer-file-name => "/home/niku/projects/foo/lib/foo.rb")
-   (mock (find-file "/home/niku/projects/foo/lib/foo.rb"))
-   (quick-toggle-buffer)))
+   (mock (buffer-file-name) => "/home/niku/projects/foo/lib/foo.rb")
+   (mock (find-file "/home/niku/projects/foo/spec/lib/foo_spec.rb"))
+   (with-fixtures
+    (lambda ()
+      (quick-toggle-buffer)))))
