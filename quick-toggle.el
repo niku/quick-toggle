@@ -112,12 +112,12 @@ matches, it returns nil"
      (replace-match (cdar rules) nil nil path))
     (t (quick-toggle-filename path (cl-rest rules)))))
 
-(defun quick-toggle-find-rule (rules src-pathname)
+(defun quick-toggle-find-rule (src-pathname rules)
   (cl-loop for rule in rules
            if (string-match (car rule) src-pathname)
            return rule))
 
-(defun quick-toggle-get-dist-pathname (rule src-pathname)
+(defun quick-toggle-get-dist-pathname (src-pathname rule)
   (when rule
     (let ((replace-from (car rule))
           (replace-to (cdr rule)))
@@ -126,8 +126,8 @@ matches, it returns nil"
 
 (defun quick-toggle-buffer ()
   (let* ((src-pathname (buffer-file-name))
-         (rule (quick-toggle-find-rule rules src-pathname))
-         (dist-pathname (quick-toggle-get-dist-pathname rule src-pathname)))
+         (rule (quick-toggle-find-rule src-pathname rules))
+         (dist-pathname (quick-toggle-get-dist-pathname src-pathname rule)))
     (find-file dist-pathname)))
 
 (provide 'quick-toggle)

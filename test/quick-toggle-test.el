@@ -15,21 +15,21 @@
   (with-fixtures
    (lambda ()
      (should (equal
-              (quick-toggle-find-rule rules "/home/niku/projects/foo/lib/foo.rb")
+              (quick-toggle-find-rule "/home/niku/projects/foo/lib/foo.rb" rules)
               (cons "lib/\\(.+\\)\.rb" "spec/lib/\\1_spec.rb"))))))
 
 (ert-deftest quick-toggle-find-rule:when-matched-second ()
   (with-fixtures
    (lambda ()
      (should (equal
-              (quick-toggle-find-rule rules "/home/niku/projects/foo/spec/lib/foo_spec.rb")
+              (quick-toggle-find-rule "/home/niku/projects/foo/spec/lib/foo_spec.rb" rules)
               (cons "spec/lib/\\(.+\\)\_spec\.rb" "lib/\\1.rb"))))))
 
 (ert-deftest quick-toggle-find-rule:when-unmatched ()
   (with-fixtures
    (lambda ()
      (should (equal
-              (quick-toggle-find-rule rules "/home/niku/projects/foo/ext/bar.rb")
+              (quick-toggle-find-rule "/home/niku/projects/foo/ext/bar.rb" rules)
               nil)))))
 
 (ert-deftest quick-toggle-get-dist-pathname:spec-to-lib ()
@@ -37,7 +37,7 @@
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/spec/lib/foo_spec.rb")
+                (quick-toggle-get-dist-pathname "/home/niku/projects/foo/spec/lib/foo_spec.rb" rule)
                 "/home/niku/projects/foo/lib/foo.rb"))))))
 
 (ert-deftest quick-toggle-get-dist-pathname:lib-to-spec ()
@@ -45,7 +45,7 @@
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/lib/foo.rb")
+                (quick-toggle-get-dist-pathname "/home/niku/projects/foo/lib/foo.rb" rule)
                 "/home/niku/projects/foo/spec/lib/foo_spec.rb"))))))
 
 (ert-deftest quick-toggle-get-dist-pathname:given-rule-is-nil ()
@@ -53,7 +53,7 @@
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/lib/foo.rb")
+                (quick-toggle-get-dist-pathname "/home/niku/projects/foo/lib/foo.rb" rule)
                 nil))))))
 
 (ert-deftest quick-toggle-buffer ()
