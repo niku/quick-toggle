@@ -113,13 +113,9 @@ matches, it returns nil"
     (t (quick-toggle-filename path (cl-rest rules)))))
 
 (defun quick-toggle-find-rule (rules pathname)
-  (cl-loop
-   for replace-from
-   being the hash-keys
-   in rules
-   using (hash-values replace-to)
-   if (string-match-p replace-from pathname)
-   return (cons replace-from replace-to)))
+  (cl-loop for rule in rules
+           if (string-match (car rule) pathname)
+           return rule))
 
 (defun quick-toggle-get-new-pathname (rule pathname)
   (when rule

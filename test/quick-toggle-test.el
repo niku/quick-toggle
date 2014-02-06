@@ -2,11 +2,8 @@
   (unwind-protect
       (progn
         ; set up part
-        (let ((rules #s(hash-table test equal
-                                 data(
-                                      "spec/lib/\\(.+\\)_spec\.rb" "lib/\\1.rb"
-                                      "lib/\\(.+\\)\.rb" "spec/lib/\\1_spec.rb"
-                                      ))))
+        (let ((rules '(("spec/lib/\\(.+\\)_spec\.rb" . "lib/\\1.rb")
+                       ("lib/\\(.+\\)\.rb" . "spec/lib/\\1_spec.rb"))))
           ; test part
           (funcall body))
         )
