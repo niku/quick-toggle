@@ -125,8 +125,9 @@ matches, it returns nil"
         (replace-match replace-to nil nil pathname)))))
 
 (defun quick-toggle-buffer ()
-  (let* ((rule (quick-toggle-find-rule rules (buffer-file-name)))
-         (new-pathname (quick-toggle-get-new-pathname rule (buffer-file-name))))
+  (let* ((pathname (buffer-file-name))
+         (rule (quick-toggle-find-rule rules pathname))
+         (new-pathname (quick-toggle-get-new-pathname rule pathname)))
     (find-file new-pathname)))
 
 (provide 'quick-toggle)
