@@ -119,14 +119,14 @@ matches, it returns nil"
 
 (defun quick-toggle-get-new-pathname (rule pathname)
   (when rule
-    (let((replace-from (car rule))
-         (replace-to (cdr rule)))
+    (let ((replace-from (car rule))
+          (replace-to (cdr rule)))
       (when (string-match replace-from pathname)
         (replace-match replace-to nil nil pathname)))))
 
 (defun quick-toggle-buffer ()
-  (let*((rule (quick-toggle-find-rule rules (buffer-file-name)))
-        (new-pathname (quick-toggle-get-new-pathname rule (buffer-file-name))))
+  (let* ((rule (quick-toggle-find-rule rules (buffer-file-name)))
+         (new-pathname (quick-toggle-get-new-pathname rule (buffer-file-name))))
     (find-file new-pathname)))
 
 (provide 'quick-toggle)
