@@ -32,28 +32,28 @@
               (quick-toggle-find-rule rules "/home/niku/projects/foo/ext/bar.rb")
               nil)))))
 
-(ert-deftest quick-toggle-get-new-pathname:spec-to-lib ()
+(ert-deftest quick-toggle-get-dist-pathname:spec-to-lib ()
   (let ((rule (cons "spec/lib/\\(.+\\)_spec\.rb" "lib/\\1.rb")))
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-new-pathname rule "/home/niku/projects/foo/spec/lib/foo_spec.rb")
+                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/spec/lib/foo_spec.rb")
                 "/home/niku/projects/foo/lib/foo.rb"))))))
 
-(ert-deftest quick-toggle-get-new-pathname:lib-to-spec ()
+(ert-deftest quick-toggle-get-dist-pathname:lib-to-spec ()
   (let ((rule (cons "lib/\\(.+\\)\.rb" "spec/lib/\\1_spec.rb")))
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-new-pathname rule "/home/niku/projects/foo/lib/foo.rb")
+                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/lib/foo.rb")
                 "/home/niku/projects/foo/spec/lib/foo_spec.rb"))))))
 
-(ert-deftest quick-toggle-get-new-pathname:given-rule-is-nil ()
+(ert-deftest quick-toggle-get-dist-pathname:given-rule-is-nil ()
   (let ((rule nil))
     (with-fixtures
      (lambda ()
        (should (equal
-                (quick-toggle-get-new-pathname rule "/home/niku/projects/foo/lib/foo.rb")
+                (quick-toggle-get-dist-pathname rule "/home/niku/projects/foo/lib/foo.rb")
                 nil))))))
 
 (ert-deftest quick-toggle-buffer ()
